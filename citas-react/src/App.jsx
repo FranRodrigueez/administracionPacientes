@@ -1,11 +1,17 @@
+import Formulario from "./componentes/Formulario"
+import ListadoPacientes from "./componentes/ListadoPacientes"
+import Header from "./componentes/header"
+
+
 
 function App() {
   
-
   return (    
-      <div>
-        <h1>Hola Mundo</h1>
-      </div>
+    <>
+      <Header/>
+      <Formulario/>
+      <ListadoPacientes/>
+    </>
   )
 }
 
