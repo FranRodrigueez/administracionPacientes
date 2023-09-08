@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
+import Error from './Error';
 
-const Formulario = () => {
+const Formulario = ({ pacientes, setPacientes}) => {
 
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -9,7 +10,6 @@ const Formulario = () => {
   const [sintomas, setSintomas] = useState('');
 
   const[error, setError] = useState(false)
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +24,33 @@ const Formulario = () => {
     }
 
     setError(false)
+
+    //Objeto de Paciente
+    const objetoPaciente = {
+      nombre, 
+      propietario, 
+      email, 
+      fecha, 
+      sintomas,
+      id: generarID()
+    }
+
+    setPacientes([...pacientes, objetoPaciente])
+
+    //Reiniciar el formulario a través del useState
+    setNombre("")
+    setPropietario("")
+    setEmail("")
+    setFecha("")
+    setSintomas("")
+
+  }
+
+  //Generar un ID
+  const generarID = () => {
+    const random = Math.random().toString(36).substr(2);
+    const fecha = Date.now().toString(36)
+    return fecha + random
   }
 
   return (
@@ -36,15 +63,17 @@ const Formulario = () => {
         <span className="text-indigo-600 font-bold">Administralos</span>
       </p>
 
+
+      {/* Comienzo del formulario */} 
       <form 
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"        
         >
-          { error && 
-            <div className="bg-red-800 text-center text-white p-3 uppercase font-bold mb-3 rounded-md">
-              <p>Todos los campos son obligatorios</p>
-            </div>
-          }
+        
+        {/* Mensaje de error si no rellenas el formulario */}
+        { error && <Error mensaje="Todos los campos son obligatorios"/>}
+
+        {/* Nombre de la mascota */}
         <div className="mb-5">
           {/* htmlFor une el label con el input */}
           <label htmlFor="mascota" className="block text-gray-700 uppercase font-bold ">
@@ -62,6 +91,7 @@ const Formulario = () => {
 
         </div>
 
+        {/* Nombre del propietario */}
         <div className="mb-5">
 
           <label htmlFor="propietario" className="block text-gray-700 uppercase font-bold ">
@@ -79,6 +109,7 @@ const Formulario = () => {
                         
         </div> 
 
+        {/* Email */}  
         <div className="mb-5">
 
           <label htmlFor="email" className="block text-gray-700 uppercase font-bold ">
@@ -97,6 +128,7 @@ const Formulario = () => {
             
         </div> 
 
+        {/* Fecha */}
         <div className="mb-5">
 
           <label htmlFor="alta" className="block text-gray-700 uppercase font-bold ">
@@ -114,6 +146,7 @@ const Formulario = () => {
             
         </div>
 
+        {/* Síntomas */}
         <div className="mb-5">
 
           <label htmlFor="sintomas" className="block text-gray-700 uppercase font-bold ">
@@ -130,6 +163,7 @@ const Formulario = () => {
 
         </div>
 
+        {/* Botón agregar */}
         <input
           type="submit"
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold
