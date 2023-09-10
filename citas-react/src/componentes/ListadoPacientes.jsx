@@ -1,12 +1,15 @@
 import Paciente from "./Paciente"
 
-const ListadoPacientes = ({pacientes, setPaciente}) => {
-       
-        return (
+
+const ListadoPacientes = ({pacientes, setPaciente}) => {   
+
+        return (               
+
                 <div className="md:w-1/2 lg:w-3/5">
 
                         {pacientes.length ? (
                                 <>
+                                        
                                         <h2 className="font-black text-3xl text-center">Listado Pacientes</h2> 
                                         <p className="text-xl mt-5 mb-10 text-center">
                                         Administra tus {""}
@@ -20,14 +23,14 @@ const ListadoPacientes = ({pacientes, setPaciente}) => {
                                                         <Paciente
                                                                 key={paciente.id}
                                                                 paciente={paciente}
-                                                                setPaciente={setPaciente}
+                                                                setPaciente={setPaciente}                                                                                                                                                                                            
                                                         />
                                                 ))}  
                               
 
-                                
+                                                        
                                
-                                        </div>
+                                        </div>                                    
                                 </>
                                 
                         ): (
