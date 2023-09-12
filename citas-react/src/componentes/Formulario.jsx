@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import Error from './Error';
 
-const Formulario = ({ pacientes, setPacientes, paciente}) => {
+const Formulario = ({ pacientes, setPacientes, paciente, setPaciente}) => {
   //Valores del formulario
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -47,15 +47,23 @@ const Formulario = ({ pacientes, setPacientes, paciente}) => {
     }
 
     //Comprobando si estamos editando o añadiendo un nuevo paciente
-    if(paciente.id){
-      //Editando registro
+    if (paciente.id) {
+      // Editando registro
       objetoPaciente.id = paciente.id
+      const pacientesActualizados = pacientes.map((pacienteState) =>
+        pacienteState.id === paciente.id ? objetoPaciente : pacienteState
+      );
+    
+      setPacientes(pacientesActualizados);
+      //Limpiar el State
+      setPaciente({})
 
-    } else{
-      //Nuevo registro
-      objetoPaciente.id = generarID()
-      setPacientes([...pacientes, objetoPaciente])
+    } else {
+      // Nuevo registro
+      objetoPaciente.id = generarID();
+      setPacientes([...pacientes, objetoPaciente]);
     }
+    
 
     //Reiniciar el formulario a través del useState
     setNombre("")
