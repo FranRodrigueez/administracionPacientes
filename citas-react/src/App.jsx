@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Formulario from "./componentes/Formulario"
 import ListadoPacientes from "./componentes/ListadoPacientes"
 import Header from "./componentes/Header"
@@ -7,8 +7,17 @@ import Header from "./componentes/Header"
 
 function App() {
   
-  const [pacientes, setPacientes] = useState([])
+  //Iniciamos la lista de pacientes guardada en el LS y si no, array vacío
+  const [pacientes, setPacientes] = useState(JSON.parse(localStorage.getItem('pacientes' ?? [])))
+
+  //Variable para guardar algún paciente en particular como objeto
   const[paciente, setPaciente] = useState({})
+
+  //Convertimos el arreglo en string para guardar los pacientes en local storage
+  useEffect(() =>{
+    localStorage.setItem('pacientes', JSON.stringify(pacientes))
+  }, [pacientes])
+
 
   const eliminarPaciente = id => {
     const pacientesActualizados = pacientes.filter(paciente => paciente.id !== id)
